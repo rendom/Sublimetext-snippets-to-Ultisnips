@@ -1,0 +1,62 @@
+var xml2js	= require('xml2js'),
+	fs		= require('fs'),
+	process = require('process');
+
+var Converter = function(input, output){
+	if( input === undefined || input === null || !fs.existsSync(input) ) 
+		throw 'Snippet file not exist';
+	
+	this.parser	= new xml2js.Parser();
+	this.input = input;
+	this.output = output || 'converted.snippets';
+	this.init();
+};
+Converter.prototype.init = function() {
+	var stats = fs.lstatSync(this.input);
+	if(stats.isDirectory()){
+		var files = fs.readdirSync(this.input);
+		for(var i=0;i<files.length;i++){
+			this.parseXml(this.input+files[i], this.createSnippetFile);
+		}
+	}else{
+		this.parseXml(this.input, this.createSnippetFile);
+	}
+}; 
+Converter.prototype.parseXml = function(filename, callback) {
+	var t=this;
+	fs.readFile(filename, function(err, data){
+		t.parser.parseString(data, callback.bind(t));
+	});
+};
+
+Converter.prototype.createSnippetFile = function(err, data) {
+	if(err) throw err;
+	
+	if(data.snippet === undefined ||
+	    data.snippet.tabTrigger === undefined ||
+		data.snippet.content === undefined)
+	{	
+		console.log('Failed to process snippet.');
+		return;
+	}
+
+	var snippet = [
+		'snippet '+data.snippet.tabTrigger+
+		(data.snippet.description?' "'+data.snippet.description+'"':''),
+		data.snippet.content.toString(),
+		'endsnippet'
+	].join('\n');
+
+	fs.appendFile(this.output, snippet+"\n\n",function(err){
+		if(err) throw err;
+		console.log(data.snippet.tabTrigger+' appended');
+	});
+}; 
+///var x = new Converter('/home/manager/tmp/laravel4-snippets/snippets/');
+var argv = process.argv.splice(2);
+if(argv[0] !== undefined){
+	var output = argv[1] || null;
+	new Converter(argv[0], output);
+} else {
+	console.log('sublime2ultisnip [directory/file] [output file]'); 
+}

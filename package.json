@@ -1,0 +1,33 @@
+{
+  "name": "Sublimetext-snippets-to-Ultisnips",
+  "version": "0.0.1",
+  "description": "Convert sublime text 3 snippets to vim (Ultisnips)",
+  "dependencies": {
+    "process": "^0.7.0",
+    "xml2js": "^0.4.4",
+	"fs":"*"
+  },
+  "bin": {
+    "subl2ultisnips":"./bin/subl2ultisnips"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rendom/Sublimetext-snippets-to-Ultisnips.git"
+  },
+  "keywords": [
+    "sublimetext",
+    "sublime",
+    "vim",
+    "ultisnips"
+  ],
+  "author": "a@vvt.nu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rendom/Sublimetext-snippets-to-Ultisnips/issues"
+  },
+  "homepage": "https://github.com/rendom/Sublimetext-snippets-to-Ultisnips"
+}
