@@ -52,7 +52,7 @@ Converter.prototype.createSnippetFile = function(err, data) {
 		console.log(data.snippet.tabTrigger+' appended');
 	});
 }; 
-///var x = new Converter('/home/manager/tmp/laravel4-snippets/snippets/');
+
 var argv = process.argv.splice(2);
 if(argv[0] !== undefined){
 	var output = argv[1] || null;
