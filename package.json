@@ -1,6 +1,6 @@
 {
   "name": "subl2ultisnips",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Convert sublime text 3 snippets to vim (Ultisnips)",
   "dependencies": {
     "process": "^0.7.0",
